@@ -1,0 +1,17 @@
+args Namespace(K=20, L=10, batch_size=128, dataset='wiki10', epoch_num=30, layer_dim=128, lr=0.001, lr_task=0.0001, margin=1, print_every=100, rebuild_freq=20, reset=False, seed=17, test_every=100, triplet_flag=True)
+1===Test Accuracy 0.2247, total_correct 1208.0
+5===Test Accuracy 0.1439, total_correct 3868.0
+1===Test Accuracy 0.2757, total_correct 1824.0
+5===Test Accuracy 0.1783, total_correct 5899.0
+1===Test Accuracy 0.5244, total_correct 2819.0
+5===Test Accuracy 0.3054, total_correct 8210.0
+1===Test Accuracy 0.5446, total_correct 3603.0
+5===Test Accuracy 0.3120, total_correct 10321.0
+1===Test Accuracy 0.6613, total_correct 3555.0
+5===Test Accuracy 0.3508, total_correct 9429.0
+1===Test Accuracy 0.6726, total_correct 4450.0
+5===Test Accuracy 0.3521, total_correct 11646.0
+1===Test Accuracy 0.7132, total_correct 3834.0
+5===Test Accuracy 0.3627, total_correct 9750.0
+1===Test Accuracy 0.7193, total_correct 4759.0
+5===Test Accuracy 0.3631, total_correct 12012.0

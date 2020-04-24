@@ -1,0 +1,283 @@
+args Namespace(K=20, L=10, batch_size=128, dataset='deli', epochs=100, log_interval=20, lr=0.001, name='data/', print_every=100, resume=True, resume_model_path='', scale=20, seed=1, test_batch_size=1024, test_every=100)
+[Slide: False] Top1:===Test Accuracy 0.2257, total_correct 22591.0
+[Slide: False] Top5: ===Test Accuracy 0.2229, total_correct 111567.0
+SLIDE do better: 13, Full do better 280
+[Slide: True] Top1:===Test Accuracy 0.0624, total_correct 6246.0
+[Slide: True] Top5: ===Test Accuracy 0.0173, total_correct 8651.0
+[Slide: True] Sample size: 105
+[Slide: False] Top1:===Test Accuracy 0.2298, total_correct 23001.0
+[Slide: False] Top5: ===Test Accuracy 0.2808, total_correct 140552.0
+SLIDE do better: 3, Full do better 17
+[Slide: True] Top1:===Test Accuracy 0.2292, total_correct 22943.0
+[Slide: True] Top5: ===Test Accuracy 0.2326, total_correct 116420.0
+[Slide: True] Sample size: 79
+[Slide: False] Top1:===Test Accuracy 0.2607, total_correct 26091.0
+[Slide: False] Top5: ===Test Accuracy 0.3124, total_correct 156359.0
+SLIDE do better: 27, Full do better 70
+[Slide: True] Top1:===Test Accuracy 0.2566, total_correct 25680.0
+[Slide: True] Top5: ===Test Accuracy 0.2677, total_correct 133993.0
+[Slide: True] Sample size: 92
+[Slide: False] Top1:===Test Accuracy 0.3304, total_correct 33075.0
+[Slide: False] Top5: ===Test Accuracy 0.3336, total_correct 166950.0
+SLIDE do better: 69, Full do better 109
+[Slide: True] Top1:===Test Accuracy 0.3216, total_correct 32190.0
+[Slide: True] Top5: ===Test Accuracy 0.2950, total_correct 147619.0
+[Slide: True] Sample size: 109
+[Slide: False] Top1:===Test Accuracy 0.3340, total_correct 33435.0
+[Slide: False] Top5: ===Test Accuracy 0.3479, total_correct 174127.0
+SLIDE do better: 17, Full do better 22
+[Slide: True] Top1:===Test Accuracy 0.3320, total_correct 33228.0
+[Slide: True] Top5: ===Test Accuracy 0.3386, total_correct 169443.0
+[Slide: True] Sample size: 114
+[Slide: False] Top1:===Test Accuracy 0.3768, total_correct 37714.0
+[Slide: False] Top5: ===Test Accuracy 0.3514, total_correct 175882.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3766, total_correct 37696.0
+[Slide: True] Top5: ===Test Accuracy 0.3515, total_correct 175899.0
+[Slide: True] Sample size: 111
+[Slide: False] Top1:===Test Accuracy 0.3866, total_correct 38698.0
+[Slide: False] Top5: ===Test Accuracy 0.3508, total_correct 175587.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3866, total_correct 38696.0
+[Slide: True] Top5: ===Test Accuracy 0.3514, total_correct 175863.0
+[Slide: True] Sample size: 123
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38763.0
+[Slide: False] Top5: ===Test Accuracy 0.3502, total_correct 175276.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3872, total_correct 38757.0
+[Slide: True] Top5: ===Test Accuracy 0.3508, total_correct 175580.0
+[Slide: True] Sample size: 134
+[Slide: False] Top1:===Test Accuracy 0.3872, total_correct 38760.0
+[Slide: False] Top5: ===Test Accuracy 0.3500, total_correct 175154.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3872, total_correct 38759.0
+[Slide: True] Top5: ===Test Accuracy 0.3491, total_correct 174711.0
+[Slide: True] Sample size: 135
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38762.0
+[Slide: False] Top5: ===Test Accuracy 0.3501, total_correct 175241.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3872, total_correct 38761.0
+[Slide: True] Top5: ===Test Accuracy 0.3478, total_correct 174071.0
+[Slide: True] Sample size: 135
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38763.0
+[Slide: False] Top5: ===Test Accuracy 0.3471, total_correct 173728.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3873, total_correct 38764.0
+[Slide: True] Top5: ===Test Accuracy 0.3400, total_correct 170184.0
+[Slide: True] Sample size: 138
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38764.0
+[Slide: False] Top5: ===Test Accuracy 0.3379, total_correct 169107.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3873, total_correct 38765.0
+[Slide: True] Top5: ===Test Accuracy 0.3270, total_correct 163631.0
+[Slide: True] Sample size: 132
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38765.0
+[Slide: False] Top5: ===Test Accuracy 0.3354, total_correct 167875.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3873, total_correct 38764.0
+[Slide: True] Top5: ===Test Accuracy 0.3274, total_correct 163849.0
+[Slide: True] Sample size: 140
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38765.0
+[Slide: False] Top5: ===Test Accuracy 0.3350, total_correct 167640.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3871, total_correct 38751.0
+[Slide: True] Top5: ===Test Accuracy 0.3322, total_correct 166246.0
+[Slide: True] Sample size: 138
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38769.0
+[Slide: False] Top5: ===Test Accuracy 0.3375, total_correct 168935.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3872, total_correct 38755.0
+[Slide: True] Top5: ===Test Accuracy 0.3319, total_correct 166084.0
+[Slide: True] Sample size: 135
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38770.0
+[Slide: False] Top5: ===Test Accuracy 0.3322, total_correct 166236.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3863, total_correct 38669.0
+[Slide: True] Top5: ===Test Accuracy 0.3258, total_correct 163044.0
+[Slide: True] Sample size: 132
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38768.0
+[Slide: False] Top5: ===Test Accuracy 0.3351, total_correct 167698.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3863, total_correct 38670.0
+[Slide: True] Top5: ===Test Accuracy 0.3305, total_correct 165410.0
+[Slide: True] Sample size: 132
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38770.0
+[Slide: False] Top5: ===Test Accuracy 0.3343, total_correct 167306.0
+SLIDE do better: 57, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3820, total_correct 38237.0
+[Slide: True] Top5: ===Test Accuracy 0.3240, total_correct 162151.0
+[Slide: True] Sample size: 132
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38771.0
+[Slide: False] Top5: ===Test Accuracy 0.3300, total_correct 165134.0
+SLIDE do better: 73, Full do better 91
+[Slide: True] Top1:===Test Accuracy 0.3817, total_correct 38211.0
+[Slide: True] Top5: ===Test Accuracy 0.3209, total_correct 160580.0
+[Slide: True] Sample size: 136
+[Slide: False] Top1:===Test Accuracy 0.3874, total_correct 38776.0
+[Slide: False] Top5: ===Test Accuracy 0.3297, total_correct 165029.0
+SLIDE do better: 58, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3816, total_correct 38192.0
+[Slide: True] Top5: ===Test Accuracy 0.3203, total_correct 160326.0
+[Slide: True] Sample size: 131
+[Slide: False] Top1:===Test Accuracy 0.3873, total_correct 38770.0
+[Slide: False] Top5: ===Test Accuracy 0.3325, total_correct 166411.0
+SLIDE do better: 60, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3815, total_correct 38188.0
+[Slide: True] Top5: ===Test Accuracy 0.3228, total_correct 161543.0
+[Slide: True] Sample size: 130
+[Slide: False] Top1:===Test Accuracy 0.3874, total_correct 38779.0
+[Slide: False] Top5: ===Test Accuracy 0.3300, total_correct 165179.0
+SLIDE do better: 59, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3818, total_correct 38217.0
+[Slide: True] Top5: ===Test Accuracy 0.3212, total_correct 160730.0
+[Slide: True] Sample size: 124
+[Slide: False] Top1:===Test Accuracy 0.3875, total_correct 38783.0
+[Slide: False] Top5: ===Test Accuracy 0.3351, total_correct 167688.0
+SLIDE do better: 59, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3830, total_correct 38336.0
+[Slide: True] Top5: ===Test Accuracy 0.3267, total_correct 163500.0
+[Slide: True] Sample size: 123
+[Slide: False] Top1:===Test Accuracy 0.3875, total_correct 38785.0
+[Slide: False] Top5: ===Test Accuracy 0.3365, total_correct 168410.0
+SLIDE do better: 60, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3830, total_correct 38335.0
+[Slide: True] Top5: ===Test Accuracy 0.3275, total_correct 163883.0
+[Slide: True] Sample size: 124
+[Slide: False] Top1:===Test Accuracy 0.3876, total_correct 38794.0
+[Slide: False] Top5: ===Test Accuracy 0.3343, total_correct 167293.0
+SLIDE do better: 59, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3836, total_correct 38401.0
+[Slide: True] Top5: ===Test Accuracy 0.3264, total_correct 163357.0
+[Slide: True] Sample size: 120
+[Slide: False] Top1:===Test Accuracy 0.3875, total_correct 38787.0
+[Slide: False] Top5: ===Test Accuracy 0.3339, total_correct 167119.0
+SLIDE do better: 59, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3835, total_correct 38388.0
+[Slide: True] Top5: ===Test Accuracy 0.3206, total_correct 160455.0
+[Slide: True] Sample size: 119
+[Slide: False] Top1:===Test Accuracy 0.3875, total_correct 38785.0
+[Slide: False] Top5: ===Test Accuracy 0.3349, total_correct 167630.0
+SLIDE do better: 59, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3832, total_correct 38359.0
+[Slide: True] Top5: ===Test Accuracy 0.3188, total_correct 159562.0
+[Slide: True] Sample size: 108
+[Slide: False] Top1:===Test Accuracy 0.3879, total_correct 38822.0
+[Slide: False] Top5: ===Test Accuracy 0.3349, total_correct 167607.0
+SLIDE do better: 59, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3837, total_correct 38402.0
+[Slide: True] Top5: ===Test Accuracy 0.3182, total_correct 159254.0
+[Slide: True] Sample size: 109
+[Slide: False] Top1:===Test Accuracy 0.3880, total_correct 38841.0
+[Slide: False] Top5: ===Test Accuracy 0.3339, total_correct 167106.0
+SLIDE do better: 59, Full do better 67
+[Slide: True] Top1:===Test Accuracy 0.3838, total_correct 38418.0
+[Slide: True] Top5: ===Test Accuracy 0.3178, total_correct 159066.0
+[Slide: True] Sample size: 108
+[Slide: False] Top1:===Test Accuracy 0.3884, total_correct 38880.0
+[Slide: False] Top5: ===Test Accuracy 0.3369, total_correct 168617.0
+SLIDE do better: 61, Full do better 70
+[Slide: True] Top1:===Test Accuracy 0.3835, total_correct 38386.0
+[Slide: True] Top5: ===Test Accuracy 0.3172, total_correct 158753.0
+[Slide: True] Sample size: 105
+[Slide: False] Top1:===Test Accuracy 0.3883, total_correct 38864.0
+[Slide: False] Top5: ===Test Accuracy 0.3361, total_correct 168188.0
+SLIDE do better: 61, Full do better 70
+[Slide: True] Top1:===Test Accuracy 0.3837, total_correct 38409.0
+[Slide: True] Top5: ===Test Accuracy 0.3162, total_correct 158235.0
+[Slide: True] Sample size: 103
+[Slide: False] Top1:===Test Accuracy 0.3883, total_correct 38862.0
+[Slide: False] Top5: ===Test Accuracy 0.3325, total_correct 166394.0
+SLIDE do better: 60, Full do better 70
+[Slide: True] Top1:===Test Accuracy 0.3839, total_correct 38425.0
+[Slide: True] Top5: ===Test Accuracy 0.3104, total_correct 155338.0
+[Slide: True] Sample size: 104
+[Slide: False] Top1:===Test Accuracy 0.3887, total_correct 38908.0
+[Slide: False] Top5: ===Test Accuracy 0.3306, total_correct 165467.0
+SLIDE do better: 59, Full do better 71
+[Slide: True] Top1:===Test Accuracy 0.3831, total_correct 38348.0
+[Slide: True] Top5: ===Test Accuracy 0.3091, total_correct 154683.0
+[Slide: True] Sample size: 97
+[Slide: False] Top1:===Test Accuracy 0.3891, total_correct 38947.0
+[Slide: False] Top5: ===Test Accuracy 0.3316, total_correct 165936.0
+SLIDE do better: 53, Full do better 71
+[Slide: True] Top1:===Test Accuracy 0.3781, total_correct 37841.0
+[Slide: True] Top5: ===Test Accuracy 0.3007, total_correct 150484.0
+[Slide: True] Sample size: 92
+[Slide: False] Top1:===Test Accuracy 0.3901, total_correct 39049.0
+[Slide: False] Top5: ===Test Accuracy 0.3324, total_correct 166349.0
+SLIDE do better: 51, Full do better 70
+[Slide: True] Top1:===Test Accuracy 0.3791, total_correct 37943.0
+[Slide: True] Top5: ===Test Accuracy 0.3011, total_correct 150692.0
+[Slide: True] Sample size: 93
+[Slide: False] Top1:===Test Accuracy 0.3937, total_correct 39404.0
+[Slide: False] Top5: ===Test Accuracy 0.3326, total_correct 166446.0
+SLIDE do better: 51, Full do better 73
+[Slide: True] Top1:===Test Accuracy 0.3807, total_correct 38106.0
+[Slide: True] Top5: ===Test Accuracy 0.3011, total_correct 150699.0
+[Slide: True] Sample size: 83
+[Slide: False] Top1:===Test Accuracy 0.3917, total_correct 39204.0
+[Slide: False] Top5: ===Test Accuracy 0.3348, total_correct 167581.0
+SLIDE do better: 70, Full do better 96
+[Slide: True] Top1:===Test Accuracy 0.3808, total_correct 38117.0
+[Slide: True] Top5: ===Test Accuracy 0.3013, total_correct 150813.0
+[Slide: True] Sample size: 84
+[Slide: False] Top1:===Test Accuracy 0.3945, total_correct 39488.0
+[Slide: False] Top5: ===Test Accuracy 0.3340, total_correct 167157.0
+SLIDE do better: 71, Full do better 97
+[Slide: True] Top1:===Test Accuracy 0.3822, total_correct 38253.0
+[Slide: True] Top5: ===Test Accuracy 0.3008, total_correct 150524.0
+[Slide: True] Sample size: 80
+[Slide: False] Top1:===Test Accuracy 0.3936, total_correct 39393.0
+[Slide: False] Top5: ===Test Accuracy 0.3331, total_correct 166717.0
+SLIDE do better: 70, Full do better 95
+[Slide: True] Top1:===Test Accuracy 0.3797, total_correct 38005.0
+[Slide: True] Top5: ===Test Accuracy 0.2989, total_correct 149583.0
+[Slide: True] Sample size: 80
+[Slide: False] Top1:===Test Accuracy 0.3962, total_correct 39659.0
+[Slide: False] Top5: ===Test Accuracy 0.3351, total_correct 167718.0
+SLIDE do better: 53, Full do better 79
+[Slide: True] Top1:===Test Accuracy 0.3826, total_correct 38296.0
+[Slide: True] Top5: ===Test Accuracy 0.3002, total_correct 150220.0
+[Slide: True] Sample size: 78
+[Slide: False] Top1:===Test Accuracy 0.3974, total_correct 39779.0
+[Slide: False] Top5: ===Test Accuracy 0.3340, total_correct 167148.0
+SLIDE do better: 52, Full do better 77
+[Slide: True] Top1:===Test Accuracy 0.3840, total_correct 38440.0
+[Slide: True] Top5: ===Test Accuracy 0.3068, total_correct 153549.0
+[Slide: True] Sample size: 76
+[Slide: False] Top1:===Test Accuracy 0.3984, total_correct 39874.0
+[Slide: False] Top5: ===Test Accuracy 0.3337, total_correct 166994.0
+SLIDE do better: 52, Full do better 76
+[Slide: True] Top1:===Test Accuracy 0.3845, total_correct 38490.0
+[Slide: True] Top5: ===Test Accuracy 0.3070, total_correct 153670.0
+[Slide: True] Sample size: 73
+[Slide: False] Top1:===Test Accuracy 0.3994, total_correct 39980.0
+[Slide: False] Top5: ===Test Accuracy 0.3342, total_correct 167247.0
+SLIDE do better: 53, Full do better 76
+[Slide: True] Top1:===Test Accuracy 0.3856, total_correct 38601.0
+[Slide: True] Top5: ===Test Accuracy 0.3072, total_correct 153748.0
+[Slide: True] Sample size: 78
+[Slide: False] Top1:===Test Accuracy 0.3987, total_correct 39906.0
+[Slide: False] Top5: ===Test Accuracy 0.3325, total_correct 166419.0
+SLIDE do better: 53, Full do better 76
+[Slide: True] Top1:===Test Accuracy 0.3857, total_correct 38607.0
+[Slide: True] Top5: ===Test Accuracy 0.3063, total_correct 153312.0
+[Slide: True] Sample size: 73
+[Slide: False] Top1:===Test Accuracy 0.3999, total_correct 40025.0
+[Slide: False] Top5: ===Test Accuracy 0.3349, total_correct 167586.0
+SLIDE do better: 53, Full do better 74
+[Slide: True] Top1:===Test Accuracy 0.3871, total_correct 38750.0
+[Slide: True] Top5: ===Test Accuracy 0.3090, total_correct 154644.0
+[Slide: True] Sample size: 73
+[Slide: False] Top1:===Test Accuracy 0.4012, total_correct 40163.0
+[Slide: False] Top5: ===Test Accuracy 0.3366, total_correct 168456.0
+SLIDE do better: 19, Full do better 34
+[Slide: True] Top1:===Test Accuracy 0.3922, total_correct 39255.0
+[Slide: True] Top5: ===Test Accuracy 0.3138, total_correct 157028.0
+[Slide: True] Sample size: 74
+[Slide: False] Top1:===Test Accuracy 0.3989, total_correct 39925.0
+[Slide: False] Top5: ===Test Accuracy 0.3564, total_correct 178385.0
+SLIDE do better: 0, Full do better 0
+[Slide: True] Top1:===Test Accuracy 0.3989, total_correct 39925.0
+[Slide: True] Top5: ===Test Accuracy 0.3564, total_correct 178385.0
+[Slide: True] Sample size: 15703
