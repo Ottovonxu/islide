@@ -33,6 +33,7 @@ os.environ["CUDA_VISIBLE_DEVICES"]=config.gpu
 #                   'deli':"/understand/learnLSH/data/deliciousLarge_shuf_test.txt",
 #                    'wiki300': "/understand/learnLSH/data/wikiLSHTC_shuf_test.txt"}
 DATASET = ['wiki10', 'amz13k','amz630k','deli','wiki300']
+FREEZE_ACC = {'wiki10': 0.8, 'deli': 0.4, 'wiki300': 0.3}
 DATAPATH_TRAIN = {'wiki10': "/home/bc20/NN/structured_matrix/wiki10_train.txt", 
                   'amz13k': "/home/bc20/NN/structured_matrix/amazonCat_train.txt",
                   'amz630k': "/home/bc20/NN/structured_matrix/amazon_shuf_train",
@@ -43,21 +44,21 @@ DATAPATH_TEST = {'wiki10': "/home/bc20/NN/structured_matrix/wiki10_test.txt",
                   'amz630k': "/home/bc20/NN/structured_matrix/amazon_shuf_test",
                   'deli':"/home/zl71/data/deliciousLarge_shuf_test.txt",
                    'wiki300': "/home/bc20/NN/data/wikiLSHTC_shuf_test.txt"}
+
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
 parser.add_argument('--dataset', type = str, default = "wiki10", choices = DATASET)
 parser.add_argument('--K', type = int, default = 20) 
 parser.add_argument('--L',type = int, default = 20)   
+parser.add_argument('--rebuild_freq',type = int, default = 30)  #wiki:30
 parser.add_argument('--batch_size', type=int, default=128, metavar='N',help='input batch size for training (default: 1)')
 parser.add_argument('--test-batch-size', type=int, default=1024, metavar='N',help='input batch size for testing (default: 1)')
 parser.add_argument('--epochs', type=int, default=100, metavar='N',help='number of epochs to train (default: 1)')
 parser.add_argument('--lr', type=float, default= '0.005', metavar='LR', help='learning rate (default: 0.1)')
-parser.add_argument('--seed', type=int, default=1, metavar='S', help='random seed (default: 1)')
-parser.add_argument('--log-interval', type=int, default=20, metavar='N',help='how many batches to wait before logging training status')
-parser.add_argument('--scale', type=int, default=20, metavar='N',help='batch size multiplier')
-parser.add_argument('--name', type=str, default="data/", metavar='N',help='datapath')
+parser.add_argument('--seed', type=int, default=4321, metavar='S', help='random seed (default: 1)')
 parser.add_argument('--print_every', type = int, default = 100)
 parser.add_argument('--test_every', type = int, default = 100)
+
 parser.add_argument('--resume',type = bool, default = False)
 parser.add_argument('--resume_model_path', type = str, default = "")
 args = parser.parse_args()
@@ -68,8 +69,13 @@ best_acc5 = 0.0
 model_checkfile = "./checkpoint/{}/model_K{}_L{}_batch{}_lr{}.pth.tar".format( args.dataset,args.K, args.L, args.batch_size, args.lr)
 logfile = "./inference_slide_log/{}/K{}_L{}_b{}.txt".format( args.dataset,args.K, args.L, args.batch_size)
 print("args",args,file = open(logfile, "a"))
-np.random.seed(1234)
-torch.manual_seed(1234)
+
+runfile = "./runs/{}_K{}_L{}_r{}_b{}_lr{}_ryan".format( args.dataset,args.K, args.L, args.rebuild_freq, args.batch_size, args.lr)
+print("\nTensorboard file: ", runfile)
+writer = SummaryWriter(runfile)
+
+np.random.seed(args.seed)
+torch.manual_seed(args.seed)
 
 def save_checkpoint(state, is_best, filename):
     torch.save(state, filename)
@@ -96,13 +102,16 @@ class Net(nn.Module):
         query = F.relu(emb + self.bias)
         return self.smax.forward(query, y,freeze,slide)
 
-def train(args, model, device, loader, optimizer, epoch, freeze):
+def train(args, model, device, loader, test_loader, optimizer, epoch, freeze):
     slide = False
     model.train()
     start_time = time.time()
     for batch_idx, (labels, data) in enumerate(loader):
+        step = epoch * len(loader)+ batch_idx
+
         optimizer.zero_grad()
         data = data.to(device)
+
         logits, new_targets, nsamples = model.forward(data, labels, freeze,slide)
         output_dist = F.log_softmax(logits.view(-1, nsamples), dim=-1)
         batch_size = labels.size(0)
@@ -111,19 +120,38 @@ def train(args, model, device, loader, optimizer, epoch, freeze):
         t1 = time.time()
         loss.backward()
         optimizer.step()
-        if(batch_idx % 30 == 0 and batch_idx!= 0 ):
-            print("rebuild hash table")
-            model.smax.build()
-        # if(freeze==False):
-        #     if(batch_idx % 30 == 0 and batch_idx!= 0 ):
-        #         print("rebuild hash table")
-        #         model.smax.build()
+
+        if(freeze==False):
+            if(batch_idx % args.rebuild_freq == 0 and batch_idx!= 0 ):
+                print("rebuild hash table")
+                model.smax.build()
 
         if batch_idx % args.print_every == args.print_every-1: 
             time_passed = time.time() - start_time
             print('===[%d, %5d] Network Train -> loss: %.3f' % (epoch , batch_idx + 1, loss.item()))
             print('===[%d, %5d] Time: %.5fs |'% (epoch, batch_idx + 1, time_passed))
-            model.smax.lsh.stats()
+            writer.add_scalar('task_loss/train', loss.item(),step)        
+
+        if batch_idx % args.test_every == args.test_every-1: 
+            s_top1, s_top5 = evaluate_slide(args, model, device, test_loader, training = True, k=5, slide = True)
+            top1, top5 = evaluate(args, model, device, test_loader, training = True, k=5,slide = False)
+            writer.add_scalar('inference/slide_top1', s_top1,step)
+            writer.add_scalar('inference/slide_top5', s_top5,step)
+            writer.add_scalar('inference/full_top1', top1,step)
+            writer.add_scalar('inference/full_top5', top5,step)
+
+    # end of epoch testing, analysis
+    slide_better, full_better = analysis(args, model, device, test_loader)
+    s_top1, s_top5 = evaluate_slide(args, model, device, test_loader, training = False, k=5, slide = True)
+    top1, top5 = evaluate(args, model, device, test_loader, training = False, k=5, slide = False)
+    writer.add_scalar('inference/slide_top1', s_top1,step)
+    writer.add_scalar('inference/slide_top5', s_top5,step)
+    writer.add_scalar('inference/full_top1', top1,step)
+    writer.add_scalar('inference/full_top5', top5,step)
+    writer.add_scalar('better/slide_better', slide_better,step)
+    writer.add_scalar('better/full_better', full_better,step)
+
+
 def evaluate_slide(args, model, device, loader, training, k=1,slide=False):
     freeze = False
     model.eval()
@@ -216,13 +244,12 @@ def analysis(args, model, device, loader, k=1):
             sizes = torch.sum(labels != -1, dim=1)
 
             data = data.to(device)
-            output_full = model(data,labels,freeze,False).cpu()
+            output_full = model.forward(data,labels,freeze,False).cpu()
             values_full, indices_full = torch.topk(output_full, k=k, dim=1)
 
-            output, sample_size,id_list = model(data,labels,freeze,True)
+            output, sample_size,id_list = model.forward(data,labels,freeze,True)
             output=output.cpu()
             values, indices = torch.topk(output, k=k, dim=1)
-
 
             for bdx in range(batch_size):
                 label_set = labels[bdx,:sizes[bdx]].numpy().tolist()
@@ -238,8 +265,6 @@ def analysis(args, model, device, loader, k=1):
             if batch_idx == 10:
                 break
 
-    # slide_do_better = slide_do_better
-    # full_do_better = full_do_better
     print("SLIDE do better: {}, Full do better {}".format(slide_do_better, full_do_better))
     print("SLIDE do better: {}, Full do better {}".format(slide_do_better, full_do_better),file = open(logfile, "a"))
     # print("[Slide: {}] Top{}: ===Test Accuracy {:.4f}, total_correct {}".format(slide, k,topk_acc, correct))
@@ -247,6 +272,7 @@ def analysis(args, model, device, loader, k=1):
     # print("[Slide: {}] Top{}: ===Test Accuracy {:.4f}, total_correct {}".format(slide, k,topk_acc, correct),file = open(logfile, "a"))
 
     model.train()
+    return slide_do_better, full_do_better
     # return top1_acc, topk_acc
 
 def main():
@@ -263,27 +289,25 @@ def main():
     
     print("Statistics:", train_dataset.N, train_dataset.D, train_dataset.L, train_dataset.max_D, train_dataset.max_L)
     model = Net(train_dataset.D, train_dataset.L).to(device)
-   # print('model.parameters:',model.parameters())
     optimizer = Adam(model.parameters(args.lr))
     
     freeze = False
     best_acc1 = 0.0
     best_acc5 = 0.0
     start_epoch = 0
-    resume_path="checkpoint/deli/model_b128_lr0.001.pth.tar"
-    if(args.resume):
+    resume_path=args.resume_model_path
+    if(args.resume_full):
         if os.path.isfile(resume_path):
             checkpoint = torch.load(resume_path)
             start_epoch = checkpoint['epoch']
             best_acc = checkpoint['best_acc1']
             model.load_state_dict(checkpoint['model_state_dict'], strict=False)
-            # optimizer.load_state_dict(checkpoint['model_optimizer'])
-            # triplet_dict.load_state_dict(checkpoint['tri_state_dict'])
-            # triplet_opt1_dict.load_state_dict(checkpoint['tri_optimizer'])
             print("=> loaded checkpoint '{}' (epoch {})"
                   .format(resume_path, checkpoint['epoch']))
         else:
             print("=> no checkpoint found at '{}'".format(resume_path)) #if resume from saved model
+
+
     for epoch in range(start_epoch, args.epochs, 1):
         print("epoch {}, freeze {}:".format(epoch, freeze))
 
@@ -298,19 +322,12 @@ def main():
         is_best = (top1_acc > best_acc1) or (top5_acc > best_acc5)
         best_acc1 = max(  top1_acc,best_acc1)
         best_acc5 = max(  top5_acc,best_acc5)
-        # if(is_best):
-        #     save_checkpoint({
-        #         'epoch': epoch + 1,
-        #         'model_state_dict': model.state_dict(),
-        #         'model_optimizer' : optimizer.state_dict(),
-        #         'best_acc1': best_acc1,
-        #         'best_acc5':best_acc5
-        #     },is_best, model_checkfile)
+
         for p in model.parameters():
             if p.requires_grad:
                 print(p.name,p.size())
 
-        if(best_acc1>0.4 and freeze == False):
+        if(best_acc1> FREEZE_ACC[args.dataset] and freeze == False):
             freeze=True
             #freeze embedding
             print("Set freeze weight")
@@ -321,8 +338,9 @@ def main():
                 if p.requires_grad:
                     print(p.name,p.size())
         
-        analysis(args, model, device, test_loader)
-        evaluate_slide(args, model, device, test_loader, training = False,k=5,slide = True)
+        
+
+
         print('-' * 89)
         print()
 
