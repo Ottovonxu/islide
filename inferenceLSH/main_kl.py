@@ -67,7 +67,7 @@ print('args:',parser.parse_args())
 best_acc1 = 0.0
 best_acc5 = 0.0
 model_checkfile = "./checkpoint/{}/model_K{}_L{}_batch{}_testbatch{}_lr{}.pth.tar".format( args.dataset,args.K, args.L, args.batch_size,args.test_batch_size, args.lr)
-logfile = "./inference_slide_log/{}/K{}_L{}_b{}.txt".format( args.dataset,args.K, args.L, args.batch_size)
+logfile = "./inference_slide_log/{}/K{}_L{}_b{}_testbatch{}.txt".format( args.dataset,args.K, args.L, args.batch_size,args.test_batch_size)
 print("args",args,file = open(logfile, "a"))
 
 runfile = "./runs/{}_K{}_L{}_r{}_b{}_lr{}_ryan".format( args.dataset,args.K, args.L, args.rebuild_freq, args.batch_size, args.lr)
@@ -132,13 +132,16 @@ def train(args, model, device, loader, test_loader, optimizer, epoch, freeze):
             print('===[%d, %5d] Time: %.5fs |'% (epoch, batch_idx + 1, time_passed))
             writer.add_scalar('task_loss/train', loss.item(),step)        
 
-        if batch_idx % args.test_every == args.test_every-1: 
-            s_top1, s_top5 = evaluate_slide(args, model, device, test_loader, training = True, k=5, slide = True)
-            top1, top5 = evaluate(args, model, device, test_loader, training = True, k=5,slide = False)
-            writer.add_scalar('inference/slide_top1', s_top1,step)
-            writer.add_scalar('inference/slide_top5', s_top5,step)
-            writer.add_scalar('inference/full_top1', top1,step)
-            writer.add_scalar('inference/full_top5', top5,step)
+        # if batch_idx % args.test_every == args.test_every-1: 
+        #     s_top1, s_top5 = evaluate_slide(args, model, device, test_loader, training = True, k=5, slide = True)
+        #     top1, top5 = evaluate(args, model, device, test_loader, training = True, k=5,slide = False)
+        #     slide_better, full_better = analysis(args, model, device, test_loader)
+        #     writer.add_scalar('inference/slide_top1', s_top1,step)
+        #     writer.add_scalar('inference/slide_top5', s_top5,step)
+        #     writer.add_scalar('inference/full_top1', top1,step)
+        #     writer.add_scalar('inference/full_top5', top5,step)
+        #     writer.add_scalar('better/slide_better', slide_better,step)
+        #     writer.add_scalar('better/full_better', full_better,step)
 
     # end of epoch testing, analysis
     slide_better, full_better = analysis(args, model, device, test_loader)
@@ -158,6 +161,7 @@ def evaluate_slide(args, model, device, loader, training, k=1,slide=False):
     N = 0.
     correct = 0.
     top1 = 0.
+    stop=int(1000/args.test_batch_size)
     with torch.no_grad():
         for batch_idx, (labels, data) in enumerate(loader):
             batch_size, ml = labels.size()
@@ -177,7 +181,7 @@ def evaluate_slide(args, model, device, loader, training, k=1,slide=False):
                         if idx == 0:
                             top1 += 1
 
-            if( batch_idx == 50 and training ):
+            if( batch_idx == stop and training ):
                 break
 
     top1_acc = top1/N * k
@@ -199,6 +203,7 @@ def evaluate(args, model, device, loader, training, k=1,slide=False):
     N = 0.
     correct = 0.
     top1 = 0.
+    stop=int(1000/args.test_batch_size)
     with torch.no_grad():
         for batch_idx, (labels, data) in enumerate(loader):
             batch_size, ml = labels.size()
@@ -217,7 +222,7 @@ def evaluate(args, model, device, loader, training, k=1,slide=False):
                         if idx == 0:
                             top1 += 1
 
-            if( batch_idx == 50 and training ):
+            if( batch_idx == stop and training ):
                 break
 
     top1_acc = top1/N * k
@@ -238,6 +243,7 @@ def analysis(args, model, device, loader, k=1):
     N = 0.
     correct = 0.
     top1 = 0.
+    stop=int(10000/args.test_batch_size)
     with torch.no_grad():
         for batch_idx, (labels, data) in enumerate(loader):
             batch_size, ml = labels.size()
@@ -256,13 +262,13 @@ def analysis(args, model, device, loader, k=1):
                 for idx in range(k):
                     N += 1
                     if id_list[indices[bdx, idx].item()] in label_set:
-                    	if indices_full[bdx, idx].item() not in label_set:
-                    		slide_do_better+=1
+                        if indices_full[bdx, idx].item() not in label_set:
+                            slide_do_better+=1
                     if indices_full[bdx, idx].item() in label_set: 
-                    	if id_list[indices[bdx, idx].item()] not in label_set:
-                    		full_do_better+=1
+                        if id_list[indices[bdx, idx].item()] not in label_set:
+                            full_do_better+=1
 
-            if batch_idx == 10:
+            if batch_idx == stop:
                 break
 
     print("SLIDE do better: {}, Full do better {}".format(slide_do_better, full_do_better))
