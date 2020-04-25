@@ -12,7 +12,7 @@ import time
 
 import numpy as np
 from lazy_parser import MultiLabelDataset
-
+from torch.utils.tensorboard import SummaryWriter
 from adam_base import Adam
 from lsh_softmax import LSHSoftmax
 from config import config
@@ -52,21 +52,21 @@ parser.add_argument('--K', type = int, default = 20)
 parser.add_argument('--L',type = int, default = 20)   
 parser.add_argument('--rebuild_freq',type = int, default = 30)  #wiki:30
 parser.add_argument('--batch_size', type=int, default=128, metavar='N',help='input batch size for training (default: 1)')
-parser.add_argument('--test-batch-size', type=int, default=1024, metavar='N',help='input batch size for testing (default: 1)')
+parser.add_argument('--test_batch_size', type=int, default=1024, metavar='N',help='input batch size for testing (default: 1)')
 parser.add_argument('--epochs', type=int, default=100, metavar='N',help='number of epochs to train (default: 1)')
 parser.add_argument('--lr', type=float, default= '0.005', metavar='LR', help='learning rate (default: 0.1)')
 parser.add_argument('--seed', type=int, default=4321, metavar='S', help='random seed (default: 1)')
 parser.add_argument('--print_every', type = int, default = 100)
 parser.add_argument('--test_every', type = int, default = 100)
 
-parser.add_argument('--resume',type = bool, default = False)
+parser.add_argument('--resume_full',type = bool, default = False)
 parser.add_argument('--resume_model_path', type = str, default = "")
 args = parser.parse_args()
 print('args:',parser.parse_args())
 
 best_acc1 = 0.0
 best_acc5 = 0.0
-model_checkfile = "./checkpoint/{}/model_K{}_L{}_batch{}_lr{}.pth.tar".format( args.dataset,args.K, args.L, args.batch_size, args.lr)
+model_checkfile = "./checkpoint/{}/model_K{}_L{}_batch{}_testbatch{}_lr{}.pth.tar".format( args.dataset,args.K, args.L, args.batch_size,args.test_batch_size, args.lr)
 logfile = "./inference_slide_log/{}/K{}_L{}_b{}.txt".format( args.dataset,args.K, args.L, args.batch_size)
 print("args",args,file = open(logfile, "a"))
 
@@ -312,7 +312,7 @@ def main():
         print("epoch {}, freeze {}:".format(epoch, freeze))
 
         epoch_start_time = time.time()
-        train(args, model, device, train_loader, optimizer, epoch,freeze)
+        train(args, model, device, train_loader,test_loader, optimizer, epoch, freeze)
 
         print('| end of epoch {:3d} | time: {:5.2f}s |'.format(epoch, (time.time() - epoch_start_time)))
         print('-' * 89)
