@@ -146,11 +146,11 @@ def train(args, model, device, loader, test_loader, optimizer, epoch, freeze):
     # end of epoch testing, analysis
     slide_better, full_better = analysis(args, model, device, test_loader)
     s_top1, s_top5 = evaluate_slide(args, model, device, test_loader, training = False, k=5, slide = True)
-    top1, top5 = evaluate(args, model, device, test_loader, training = False, k=5, slide = False)
+    # top1, top5 = evaluate(args, model, device, test_loader, training = False, k=5, slide = False)
     writer.add_scalar('inference/slide_top1', s_top1,step)
     writer.add_scalar('inference/slide_top5', s_top5,step)
-    writer.add_scalar('inference/full_top1', top1,step)
-    writer.add_scalar('inference/full_top5', top5,step)
+    # writer.add_scalar('inference/full_top1', top1,step)
+    # writer.add_scalar('inference/full_top5', top5,step)
     writer.add_scalar('better/slide_better', slide_better,step)
     writer.add_scalar('better/full_better', full_better,step)
 
