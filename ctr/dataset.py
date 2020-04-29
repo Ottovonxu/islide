@@ -272,11 +272,10 @@ def get_dataset(tfile, dimension, MHTrain, K, pairwise, hashFullDMH, method):
           return SingleFileDirectMHDatasetFast(tfile, dimension, K, pairwise, hashFullDMH,method)
         else:
           return SingleFileDirectMHDataset(tfile, dimension, K, pairwise, hashFullDMH)
-    else:
-        return PureDataset(tfile,dimension)
-
     # else:
-    #     return SingleFileDirectFHDataset(tfile, dimension, pairwise)
+    #     return PureDataset(tfile,dimension)
+    else:
+        return SingleFileDirectFHDataset(tfile, dimension, pairwise)
 class PureDataset(data.Dataset):
     def __init__(self, X_file, dimension):
         super(PureDataset, self).__init__()

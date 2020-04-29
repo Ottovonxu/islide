@@ -36,7 +36,9 @@ parser.add_argument('--epoch', action="store", dest="epoch", type=int, default=1
                     help="Number of epochs for training. Default 10")
 parser.add_argument('--batch', action="store", dest="batch_size", type=int, default=1024,
                     help="Batch size to use. Default 1024")
-parser.add_argument('--reduced_dimension', action="store", dest="reduced_dimension", type=int, default=3231961,
+parser.add_argument('--hidden', action="store", dest="hidden", type=int, default=1000,
+                    help="hidden")
+parser.add_argument('--reduced_dimension', action="store", dest="reduced_dimension", type=int, default=10000,
                     help="Dimension reduction by FH or MH")
 parser.add_argument('--bbits', action="store", dest="bbits", type=int, default=8, 
                     help="number of bits to store for MH")
@@ -89,6 +91,7 @@ SAVE_MODEL_ITERATION = results.save_model_iteration
 LOAD_LATEST_CKPT = results.load_latest_ckpt
 EVALUATE_ITR = results.eval_model_iteration
 class_weights = None
+HID=results.hidden
 if USECLASSWT:
   if DATASET == "avazu":
     class_weights = torch.tensor([0.566, 4.266], dtype=torch.double)
@@ -313,13 +316,13 @@ if __name__ == '__main__':
     if L == 0:
         model = LRSG(dimension=D).double()
     else:
-        model = FCNSG(dimension=D, num_layers=L).double()
+        model = FCNSG(dimension=D, num_layers=L,hidden_size=HID).double()
     if GPU_IN_USE:
         model.cuda(device_id)
     # print(torch.cuda.device_count())
     print(model)
     #########################################
-    cfix = "D{}_PW{}_BS{}_LR{}_CW{}_WD{}_HF{}".format(D,PAIRWISE,BATCH_SIZE,LRATE,USECLASSWT,WEIGHT_DECAY,HASHFULL)
+    cfix = "D{}_hidden{}_PW{}_BS{}_LR{}_CW{}_WD{}_HF{}".format(D,HID,PAIRWISE,BATCH_SIZE,LRATE,USECLASSWT,WEIGHT_DECAY,HASHFULL)
     fix = "_MH_COMP{}_K{}_{}".format(MHCOMPUTATION,K,cfix) if MH  else "_FH_{}".format(cfix)
 
     print("RUNCONFIG:", fix)
